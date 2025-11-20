@@ -170,11 +170,6 @@ _{analysis['feedback']}_"""
         print(f"Error posting message: {e}")
 
 
-@app.event("app_mention")
-def handle_mentions(event, say):
-    """Handle when the bot is mentioned"""
-    say(f"👋 Hi! I help ensure posts answer these key questions:\n{REQUIRED_QUESTIONS}")
-
 # Initialize Flask app
 flask_app = Flask(__name__)
 handler = SlackRequestHandler(app)
@@ -182,6 +177,17 @@ handler = SlackRequestHandler(app)
 @flask_app.route("/slack/events", methods=["POST"])
 def slack_events():
     """Handle incoming Slack events via webhook"""
+    # Log the incoming event for debugging
+    try:
+        payload = request.get_json()
+        event_type = payload.get("type")
+        event = payload.get("event", {})
+        print(f"[WEBHOOK] Received event type: {event_type}")
+        if event:
+            print(f"[WEBHOOK] Event details: type={event.get('type')}, channel={event.get('channel')}, user={event.get('user')}, bot_id={event.get('bot_id')}")
+    except Exception as e:
+        print(f"[WEBHOOK] Error logging event: {e}")
+
     return handler.handle(request)
 
 @flask_app.route("/health", methods=["GET"])
