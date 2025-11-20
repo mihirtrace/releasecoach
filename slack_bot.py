@@ -36,19 +36,41 @@ def analyze_post_with_claude(message_text: str) -> dict:
 The post must answer these questions:
 {REQUIRED_QUESTIONS}
 
+EXAMPLES OF GOOD POSTS THAT SHOULD GET "YES":
+
+Example 1:
+"New streamlined checkout for basketball cameras. Customers with player subscriptions get an email with a direct link. The new landing page removes unnecessary steps and decisions - just a simple modal flow. This helps customers buy basketball cameras faster with less confusion and fewer abandoned checkouts."
+
+Example 2:
+"Added auto-highlight detection for soccer games. Customers just upload their full game video and our AI finds the key moments (goals, near-misses, great saves). Saves parents 2+ hours of manual editing per game. Solves the problem of parents not having time to create highlight reels."
+
+Example 3:
+"Fixed bug where livestream would freeze on poor connections. Customers livestreaming games will see fewer dropouts and better quality. This was our #1 support complaint from parents trying to watch their kids' games remotely."
+
+WHAT QUALIFIES AS "YES":
+- The post explains WHO uses it and WHEN/HOW they'll use it (even if briefly)
+- The post describes the customer benefit or outcome (even if it's indirect)
+- The post explains why this matters or what problem it solves
+- Information can be in ANY part of the post, not just labeled sections
+- Give the benefit of the doubt if the answers are reasonably clear
+
+WHAT REQUIRES "NO":
+- Missing who will use this or how it will be used
+- No explanation of customer benefit (direct or indirect)
+- No rationale for why this matters or what problem it solves
+- Purely technical details with no customer context
+
 Here is the post to analyze:
 ---
 {message_text}
 ---
 
-Analyze whether this post adequately answers all three questions.
+Analyze whether this post adequately answers all three questions. Be fair and lenient - if the information is there in ANY form, even if not perfectly structured, answer YES.
 
 Respond in this exact format:
 ANSWERS_QUESTIONS: [YES or NO]
 FEEDBACK: [Brief explanation of what's missing]
-CONGRATULATIONS: [REQUIRED if YES - You MUST write a unique, personalized, encouraging 1-sentence message (10-15 words) celebrating what they did well. Be specific and genuine. DO NOT LEAVE BLANK if YES. If NO, write "N/A"]
-
-Be strict but fair - the post should clearly address customer value and impact."""
+CONGRATULATIONS: [REQUIRED if YES - You MUST write a unique, personalized, encouraging 1-sentence message (10-15 words) celebrating what they did well. Be specific and genuine. DO NOT LEAVE BLANK if YES. If NO, write "N/A"]"""
 
     try:
         message = anthropic.messages.create(
