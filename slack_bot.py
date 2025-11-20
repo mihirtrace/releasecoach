@@ -38,19 +38,26 @@ The post must answer these questions:
 
 EXAMPLES OF GOOD POSTS THAT SHOULD GET "YES":
 
-Example 1:
+Example 1 - Direct customer feature:
 "New streamlined checkout for basketball cameras. Customers with player subscriptions get an email with a direct link. The new landing page removes unnecessary steps and decisions - just a simple modal flow. This helps customers buy basketball cameras faster with less confusion and fewer abandoned checkouts."
 
-Example 2:
+Example 2 - Customer-facing feature:
 "Added auto-highlight detection for soccer games. Customers just upload their full game video and our AI finds the key moments (goals, near-misses, great saves). Saves parents 2+ hours of manual editing per game. Solves the problem of parents not having time to create highlight reels."
 
-Example 3:
+Example 3 - Bug fix with clear customer impact:
 "Fixed bug where livestream would freeze on poor connections. Customers livestreaming games will see fewer dropouts and better quality. This was our #1 support complaint from parents trying to watch their kids' games remotely."
 
+Example 4 - Operational improvement that explains the "why":
+"Fix notifications on basketball auto-CC failure so that people are informed when it doesn't work. Operations team will know when a basketball game fails to auto-CC instead of having silent failures that aren't investigated. Prevents customer issues from going unnoticed and improves our ability to maintain service quality."
+
+Example 5 - Technical fix with clear rationale:
+"Fix API sensor processing crashes for custom polygons. Customers who create their own line and polygon sensors using the API will have their sessions processed correctly instead of crashing. Solves the problem of arbitrary API-created sensors causing processing failures."
+
 WHAT QUALIFIES AS "YES":
-- The post explains WHO uses it and WHEN/HOW they'll use it (even if briefly)
-- The post describes the customer benefit or outcome (even if it's indirect)
-- The post explains why this matters or what problem it solves
+- The post explains WHO uses it and WHEN/HOW they'll use it (customers, operations team, API users, etc.)
+- The post describes the benefit or outcome (can be indirect - like "operations can catch issues faster")
+- The post explains why this matters or what problem it solves (this is critical - even if not directly customer-facing, explaining the "why" adds value)
+- Operational/internal improvements are acceptable IF they explain the problem being solved
 - Information can be in ANY part of the post, not just labeled sections
 - Give the benefit of the doubt if the answers are reasonably clear
 
