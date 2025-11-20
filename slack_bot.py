@@ -121,12 +121,16 @@ CONGRATULATIONS: [REQUIRED if YES - You MUST write a unique, personalized, encou
 def handle_message_events(event, say, client):
     """Handle new messages in the monitored channel"""
 
+    print(f"[DEBUG] Received message event: channel={event.get('channel')}, bot_id={event.get('bot_id')}, thread_ts={event.get('thread_ts')}, subtype={event.get('subtype')}")
+
     # Ignore bot messages and threaded replies
     if event.get("bot_id") or event.get("thread_ts"):
+        print(f"[DEBUG] Ignoring: bot message or thread reply")
         return
 
     # Only monitor the specified channel
     if event.get("channel") != MONITORED_CHANNEL_ID:
+        print(f"[DEBUG] Ignoring: wrong channel (expected {MONITORED_CHANNEL_ID}, got {event.get('channel')})")
         return
 
     message_text = event.get("text", "")
@@ -134,6 +138,7 @@ def handle_message_events(event, say, client):
 
     # Skip empty messages
     if not message_text.strip():
+        print(f"[DEBUG] Ignoring: empty message")
         return
 
     print(f"Analyzing message: {message_text[:100]}...")
