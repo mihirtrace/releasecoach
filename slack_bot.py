@@ -1,5 +1,6 @@
 import os
 import re
+import time
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 from anthropic import Anthropic
@@ -136,10 +137,19 @@ def handle_mentions(event, say):
     """Handle when the bot is mentioned"""
     say(f"👋 Hi! I help ensure posts answer these key questions:\n{REQUIRED_QUESTIONS}")
 
+def main():
+    app_token = os.environ["SLACK_APP_TOKEN"]
+
+    while True:
+        try:
+            handler = SocketModeHandler(app, app_token)
+            print("⚡️ Slack Accountability Bot is running!")
+            print(f"📊 Monitoring channel: {MONITORED_CHANNEL_ID}")
+            handler.start()  # This blocks until the Socket Mode connection dies
+        except Exception as e:
+            print(f"Top-level SocketMode error: {e}. Restarting in 5 seconds...")
+            time.sleep(5)
+
 
 if __name__ == "__main__":
-    # Start the app using Socket Mode
-    handler = SocketModeHandler(app, os.environ.get("SLACK_APP_TOKEN"))
-    print("⚡️ Slack Accountability Bot is running!")
-    print(f"📊 Monitoring channel: {MONITORED_CHANNEL_ID}")
-    handler.start()
+    main()
