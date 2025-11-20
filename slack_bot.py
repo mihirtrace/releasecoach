@@ -1,10 +1,10 @@
 import os
 import re
-import time
 from slack_bolt import App
-from slack_bolt.adapter.socket_mode import SocketModeHandler
+from slack_bolt.adapter.flask import SlackRequestHandler
 from anthropic import Anthropic
 from dotenv import load_dotenv
+from flask import Flask, request
 
 # Load environment variables
 load_dotenv()
@@ -175,19 +175,22 @@ def handle_mentions(event, say):
     """Handle when the bot is mentioned"""
     say(f"👋 Hi! I help ensure posts answer these key questions:\n{REQUIRED_QUESTIONS}")
 
-def main():
-    app_token = os.environ["SLACK_APP_TOKEN"]
+# Initialize Flask app
+flask_app = Flask(__name__)
+handler = SlackRequestHandler(app)
 
-    while True:
-        try:
-            handler = SocketModeHandler(app, app_token)
-            print("⚡️ Slack Accountability Bot is running!")
-            print(f"📊 Monitoring channel: {MONITORED_CHANNEL_ID}")
-            handler.start()  # This blocks until the Socket Mode connection dies
-        except Exception as e:
-            print(f"Top-level SocketMode error: {e}. Restarting in 5 seconds...")
-            time.sleep(5)
+@flask_app.route("/slack/events", methods=["POST"])
+def slack_events():
+    """Handle incoming Slack events via webhook"""
+    return handler.handle(request)
 
+@flask_app.route("/health", methods=["GET"])
+def health():
+    """Health check endpoint for Railway"""
+    return {"status": "ok", "monitoring_channel": MONITORED_CHANNEL_ID}, 200
 
 if __name__ == "__main__":
-    main()
+    print("⚡️ Slack Accountability Bot is running!")
+    print(f"📊 Monitoring channel: {MONITORED_CHANNEL_ID}")
+    port = int(os.environ.get("PORT", 3000))
+    flask_app.run(host="0.0.0.0", port=port)
