@@ -46,7 +46,7 @@ Analyze whether this post adequately answers all three questions.
 Respond in this exact format:
 ANSWERS_QUESTIONS: [YES or NO]
 FEEDBACK: [Brief explanation of what's missing]
-CONGRATULATIONS: [If YES, write a unique, personalized, encouraging 1-sentence message (10-15 words) that celebrates what they did well. Be specific and genuine. Vary your style - sometimes enthusiastic, sometimes thoughtful, sometimes appreciative. If NO, leave blank]
+CONGRATULATIONS: [REQUIRED if YES - You MUST write a unique, personalized, encouraging 1-sentence message (10-15 words) celebrating what they did well. Be specific and genuine. DO NOT LEAVE BLANK if YES. If NO, write "N/A"]
 
 Be strict but fair - the post should clearly address customer value and impact."""
 
@@ -69,6 +69,10 @@ Be strict but fair - the post should clearly address customer value and impact."
         answers_questions = answers_match.group(1).upper() == 'YES' if answers_match else False
         feedback = feedback_match.group(1).strip() if feedback_match else "Could not parse feedback"
         congratulations = congrats_match.group(1).strip() if congrats_match else ""
+
+        # Ensure we have a congratulations message for YES answers
+        if answers_questions and (not congratulations or congratulations == "N/A"):
+            congratulations = "Great job addressing customer value and impact in your post!"
 
         return {
             'answers_questions': answers_questions,
