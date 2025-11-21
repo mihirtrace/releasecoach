@@ -53,12 +53,18 @@ Example 4 - Operational improvement that explains the "why":
 Example 5 - Technical fix with clear rationale:
 "Fix API sensor processing crashes for custom polygons. Customers who create their own line and polygon sensors using the API will have their sessions processed correctly instead of crashing. Solves the problem of arbitrary API-created sensors causing processing failures."
 
+Example 6 - Pricing/UX change based on customer feedback:
+"New pricing page A/B test. Customers on checkout will see either the normal pricing page or a new version showing all four subscription options at once. Testing this because got CX feedback that the $300 pricetag is scary - trying to get more basketball subscriptions by making pricing less intimidating. Added tracking to measure conversions."
+
 WHAT QUALIFIES AS "YES":
 - The post explains WHO uses it and WHEN/HOW they'll use it (customers, operations team, API users, etc.)
 - The post describes the benefit or outcome (can be indirect - like "operations can catch issues faster")
-- The post explains why this matters or what problem it solves (this is critical - even if not directly customer-facing, explaining the "why" adds value)
+- The post explains why this matters or what problem it solves (this is CRITICAL - customer feedback, problem statements, and goals count as valid reasons)
+- Posts that mention customer feedback, CX insights, or customer pain points should almost always pass
+- A/B tests, experiments, and iterative improvements are valid IF they explain the hypothesis or customer problem
 - Operational/internal improvements are acceptable IF they explain the problem being solved
 - Information can be in ANY part of the post, not just labeled sections
+- The writing style doesn't matter - informal, bullet points, or conversational are all fine
 - Give the benefit of the doubt if the answers are reasonably clear
 
 WHAT REQUIRES "NO":
